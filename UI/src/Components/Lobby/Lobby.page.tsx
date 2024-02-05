@@ -1,5 +1,6 @@
 import { Button, TextField, styled } from '@mui/material';
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
 
 const LobbyLayout = styled(`div`)({
@@ -21,10 +22,17 @@ const LobbyPage = (props: LobbyPageProps) => {
 
     const roomName = useRef<HTMLInputElement>();
     const userName = useRef<HTMLInputElement>();
+    
+    const navigate = useNavigate();
+
+    const gotoGame = () => {
+        navigate("/game");
+    }
 
     const clbk = (status: "Failed" | "Success") => {
         if(status === 'Success'){
             alert('cool, joined');
+            gotoGame();
         } else {
             alert('not cool - failed!');
         }

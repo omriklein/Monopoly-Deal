@@ -24,7 +24,9 @@ io.on('connection', (socket) => {
     socket.join(roomKey);
     // io.to(roomKey).emit('chatMessage', { id: 'System', message: `${socket.id} joined the room.` });
     const joinStatus = GameService.joinGame(roomKey, socket.id, userName);
-    clbk(joinStatus);
+    if(clbk){
+      clbk(joinStatus);
+    }
   });
 
   // Chat things -- 

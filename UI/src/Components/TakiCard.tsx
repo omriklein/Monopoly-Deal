@@ -1,7 +1,7 @@
 import { Paper, styled } from '@mui/material';
 import React from 'react';
-import { BackHand, ColorLensTwoTone, SwapHoriz } from '@mui/icons-material'
-
+import { BackHand, ColorLensTwoTone, SwapHoriz } from '@mui/icons-material';
+import './card.css';
 
 const cardDisplayMap = (card: TakiCard): JSX.Element | string | number => {
     switch (card.type) {
@@ -19,8 +19,8 @@ const cardDisplayMap = (card: TakiCard): JSX.Element | string | number => {
 const TakiCard: React.FC<{ card: TakiCard }> = (props: { card: TakiCard }) => {
 
     console.log(props.card);
-
-    const cardColor = props.card.color === "all" ? "gray" : props.card.color;
+    const card: TakiCard = props.card;
+    const cardColor = card.color === "all" ? "gray" : card.color;
     const DemoPaper = styled(Paper)(({ theme }) => ({
         width: 120,
         height: 120,
@@ -34,9 +34,18 @@ const TakiCard: React.FC<{ card: TakiCard }> = (props: { card: TakiCard }) => {
     }));
 
     return (
-        <DemoPaper variant="elevation" color=''>
-            {cardDisplayMap(props.card)}
-        </DemoPaper>
+        // <DemoPaper variant="elevation" color=''>
+        //     {cardDisplayMap(props.card)}
+        // </DemoPaper>
+        <div className="card">
+            {card.type === "number" &&
+                <>
+                    <div className="top">{card.value}</div>
+                    <div className="mid">{card.value}</div>
+                    <div className="bottom">{card.value}</div>
+                </>
+            }
+        </div>
     );
 };
 

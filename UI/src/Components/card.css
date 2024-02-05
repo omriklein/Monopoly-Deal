@@ -1,0 +1,29 @@
+.card {
+    margin: 20px;
+    width: 100px;
+    height: 150px;
+    background-color: white;
+    border: 1px solid #333;
+    border-radius: 7%;
+    position: relative;
+}
+
+.card > .top {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+
+.card > .mid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4em;
+}
+
+.card > .bottom {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+}
