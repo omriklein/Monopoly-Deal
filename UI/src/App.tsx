@@ -6,6 +6,7 @@ import './App.css'
 import { io } from 'socket.io-client';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import GamePage from './Components/Game.page';
+import Playcardtest from './Components/playcardstest.page';
 
 const socket = io('http://localhost:3001');
 
@@ -19,7 +20,8 @@ const App: React.FC = () => {
           <Route index element={<LobbyPage socket={socket} />} />
           <Route path="chat" element={<ChatPage />} />
           <Route path="game" element={<GamePage socket={socket} />} />
-          <Route path="cardDemo" element={<TakiCard card={{color: "red", type:"number", value: 3}}/>} />
+          <Route path="cardDemo" element={<TakiCard card={{color: "red", type:"number", value: 6}}/>} />
+          <Route path="test" element={<Playcardtest/>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>

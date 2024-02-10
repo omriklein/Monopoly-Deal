@@ -18,7 +18,7 @@ const cardDisplayMap = (card: TakiCard): JSX.Element | string | number => {
 
 const TakiCard: React.FC<{ card: TakiCard }> = (props: { card: TakiCard }) => {
 
-    console.log(props.card);
+    // console.log(props.card);
     const card: TakiCard = props.card;
     const cardColor = card.color === "all" ? "gray" : card.color;
     const DemoPaper = styled(Paper)(({ theme }) => ({

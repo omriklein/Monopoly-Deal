@@ -27,6 +27,8 @@ io.on('connection', (socket) => {
     if(clbk){
       clbk(joinStatus);
     }
+    console.log(`${socket.id} joined the room ${roomKey}.`);
+    
   });
 
   // Chat things -- 
@@ -42,7 +44,7 @@ io.on('connection', (socket) => {
   // Game things -- 
 
   socket.on('endTurn', (roomKey: string, skip?: boolean) => {
-    GameService.getGame(roomKey).endTurn(skip);
+    GameService.getGame(roomKey)?.endTurn(skip);
   });
 
   socket.on("readyGame", (roomKey: string, isReady: boolean) => {
@@ -51,7 +53,9 @@ io.on('connection', (socket) => {
 
   socket.on("useCard", (roomKey: string, card: TakiCard) => {
     // TODO: make sure that it's my turn..
-    GameService.getGame(roomKey).playTurn(card);
+    console.log(`playing card`, card);
+    
+    GameService.getGame(roomKey)?.playTurn(card);
   });
 
   socket.on("takeCard", (roomKey: string) => {
