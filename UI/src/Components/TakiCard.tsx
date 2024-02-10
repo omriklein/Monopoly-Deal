@@ -37,7 +37,7 @@ const TakiCard: React.FC<{ card: TakiCard }> = (props: { card: TakiCard }) => {
         // <DemoPaper variant="elevation" color=''>
         //     {cardDisplayMap(props.card)}
         // </DemoPaper>
-        <div className="card">
+        <div className="card" style={{color: cardColor}}>
             {card.type === "number" &&
                 <>
                     <div className="top">{card.value}</div>
