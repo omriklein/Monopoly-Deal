@@ -27,7 +27,7 @@ export default class Game {
     }
 
     playerReady(id: string, isReady: boolean) {
-        const player = this.players.find(player => player.id = id);
+        const player = this.players.find(player => player.id === id);
         if(!player){
             // Error
             return;
@@ -35,7 +35,7 @@ export default class Game {
         player.isReady = isReady;
 
         // Check if all players are ready
-        if(this.players.every((player) => player.isReady)){
+        if(this.players.length >= 2 && this.players.every((player) => player.isReady)){
             // TODO: Start game
             console.log("Start the game");
         }
