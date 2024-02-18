@@ -1,7 +1,7 @@
-import { Button, TextField, styled } from '@mui/material';
-import { useEffect, useRef } from 'react';
+import { Box, Button, Modal, TextField, Typography, styled } from '@mui/material';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Socket } from 'socket.io-client';
+import { useSocekt } from '../../Context/SocketContext';
 
 const LobbyLayout = styled(`div`)({
     display: 'flex',
@@ -12,34 +12,47 @@ const LobbyLayout = styled(`div`)({
     height: `100%`,
 });
 
-interface LobbyPageProps {
-    socket: Socket
-}
+const RulesModal = styled(Modal)({
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'black',
+    width: '400px',
+    border: `2px solid black`,
+    boxShadow: '24px',
+    color: 'white',
+    padding: '10px',
+    overflow: 'auto',
+    '::-webkit-scrollbar': {
+        display: 'none'
+    }
+});
 
-const LobbyPage = (props: LobbyPageProps) => {
+const LobbyPage = () => {
 
-    const {socket} = props;
+    const socket = useSocekt();
+    const navigate = useNavigate();
 
     const roomName = useRef<HTMLInputElement>();
     const userName = useRef<HTMLInputElement>();
-    
-    const navigate = useNavigate();
 
-    const gotoGame = () => {
-        navigate("/game");
+    const [rulesOpen, setRulesOpen] = useState<boolean>(false);
+
+    const gotoWaitingRoom = () => {
+        navigate(`/waitingRoom?roomKey=${roomName.current?.value}`);
     }
 
     const clbk = (status: "Failed" | "Success") => {
-        if(status === 'Success'){
+        if (status === 'Success') {
             alert('cool, joined');
-            gotoGame();
+            gotoWaitingRoom();
         } else {
             alert('not cool - failed!');
         }
     }
 
     const loginToRoom = () => {
-        // alert(`${userName.current?.value} joins ${roomName.current?.value}`)
         socket.emit('joinRoom', roomName.current?.value, userName.current?.value, clbk);
     }
 
@@ -66,6 +79,18 @@ const LobbyPage = (props: LobbyPageProps) => {
                 }}
             />
             <Button variant='contained' onClick={loginToRoom}>Enter Game</Button>
+            <Button variant='contained' onClick={() => setRulesOpen(true)}>Game Rules</Button>
+            <RulesModal
+                open={rulesOpen}
+                onClose={() => setRulesOpen(false)}
+                aria-labelledby='modal-title'
+                aria-describedby='modal-desc'>
+                <Box>
+                    <Typography id='modal-title' variant='h6' component="h2">Rules of the game</Typography>
+                    <Typography id='modal-desc'>There are the rules of the game... There are the rules of the game... There are the rules of the game... There are the rules of the game... There are the rules of the game... There are the rules of the game... There are the rules of the game...There are the rules of the game...There are the rules of the game...There are the rules of the game...There are the rules of the game...There are the rules of the game...</Typography>
+                    <Button onClick={()=>setRulesOpen(false)}>Close Rules</Button>
+                </Box>
+            </RulesModal>
         </LobbyLayout>
     );
 };
